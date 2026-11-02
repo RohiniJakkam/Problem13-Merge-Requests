@@ -1,0 +1,16 @@
+stages:
+  - test
+
+validate_project:
+  stage: test
+  image: alpine:3.20
+
+  script:
+    - echo "Starting project validation"
+    - test -f index.html
+    - test -f README.md
+    - echo "All validation checks passed"
+
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH'
