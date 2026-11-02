@@ -1,0 +1,25 @@
+name: Project Validation
+
+on:
+  push:
+    branches:
+      - main
+      - cleanup/remove-test-file
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate project files
+        run: |
+          test -f index.html
+          test -f README.md
+          echo "All validation checks passed!"
